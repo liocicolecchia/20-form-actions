@@ -130,7 +130,7 @@ export default function Signup() {
       </div>
 
       {formState.errors && (
-        <ul className="errors">
+        <ul className="error">
           {formState.errors.map((error) => (
             <li key={error}>{error}</li>
           ))}
