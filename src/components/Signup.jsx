@@ -8,7 +8,7 @@ import {
 } from "../util/validation";
 
 export default function Signup() {
-  function signupAction(formData) {
+  function signupAction(prevFormState, formData) {
     const email = formData.get("email");
     const password = formData.get("password");
     const confirmPassword = formData.get("confirm-password");
@@ -129,7 +129,7 @@ export default function Signup() {
         </label>
       </div>
 
-      {formState.error && (
+      {formState.errors && (
         <ul className="errors">
           {formState.errors.map((error) => (
             <li key={error}>{error}</li>
