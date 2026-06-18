@@ -1,3 +1,5 @@
+import { useActionState } from "react";
+
 import {
   isEmail,
   isNotEmpty,
@@ -45,10 +47,18 @@ export default function Signup() {
     if (acquisitionChannel.length === 0) {
       errors.push("Please select at least one acquisition channel.");
     }
+
+    if (errors.length > 0) {
+      return { errors: errors };
+    }
+
+    return { errors: null };
   }
 
+  const [formState, formAction] = useActionState(signupAction, { errors: null });
+
   return (
-    <form action={signupAction}>
+    <form action={formAction}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
 
@@ -118,6 +128,14 @@ export default function Signup() {
           terms and conditions
         </label>
       </div>
+
+      {formState.error && (
+        <ul className="errors">
+          {formState.errors.map((error) => (
+            <li key={error}>{error}</li>
+          ))}
+        </ul>
+      )}
 
       <p className="form-actions">
         <button type="reset" className="button button-flat">
